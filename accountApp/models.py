@@ -4,8 +4,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 # custom user manager
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, tc, password=None,
-    password2=None):
+    def create_user(self, email, name, tc, password=None,password2=None):
         """
         Creates and saves a User with the given email, name,
         tc and password.
@@ -16,9 +15,8 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             name=name,
-            tc=tc,
+            tc=tc
         )
-
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -47,6 +45,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
     name = models.CharField(max_length=200)
+    password=models.CharField(max_length=200)
     tc = models.BooleanField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
